@@ -6,32 +6,94 @@ namespace Treehouse.FitnessFrog
     {
         static void Main()
         {
-            int runningTotal = 0;
-            bool keepGoing = true;
-            while (keepGoing)
+            var runningTotal = 0.0;
+
+            while (true)
             {
                 //Prompt the user for minutes exercised
                 Console.Write("Enter how many minutes you exercised or type \"quit\" to exit: ");
-                string entry = Console.ReadLine();
+                var entry = Console.ReadLine();
 
-                if (entry == "quit")
+                if (entry.ToLower() == "quit")
                 {
-                    keepGoing = false;
+                    break;
                 }
-                else
+
+                try
                 {
-                    int minutes = int.Parse(entry);
-                    runningTotal = runningTotal + minutes;
+                    var minutes = double.Parse(entry);
+
+                    if (minutes <= 0)
+                    {
+                        Console.WriteLine(minutes + " is not an acceptable value.");
+                        continue;
+                    }
+                    else if (minutes <= 10)
+                    {
+                        Console.WriteLine("Better than nothing, amiright? ");
+                    }
+                    else if (minutes <= 30)
+                    {
+                        Console.WriteLine("Way to go hotstuff! ");
+                    }
+                    else if (minutes <= 60)
+                    {
+                        Console.WriteLine("What are you, some sort of ninja warrior!? ");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Okay, now you're just showing off. ");
+                    }
+
+                    //Add minutes exercised to total
+                    runningTotal += minutes;
                 }
+                catch (FormatException)
+                {
+                    Console.WriteLine("That isn't valid input. Try again.");
+                    continue;
+                }
+
             }
-            //Add minutes exercised to total
 
 
             //Display total minutes exercised to the screen
             Console.WriteLine("You've exercised " + runningTotal + " minutes.");
             //Repeat until the user quits
 
-            Console.WriteLine("bye!");
+            Console.WriteLine("Byeeeee!");
+        }
+    }
+}
+
+
+using System;
+
+namespace Treehouse.CodeChallenges
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.Write("Enter the number of times to print \"Yay!\": ");
+            string input = Console.ReadLine();
+
+            try
+            {
+                int count = int.Parse(input);
+
+                int i = 0;
+                while(i < count)
+                {
+                    i += 1;
+                    Console.WriteLine("Yay!");
+                }
+            }
+            catch(FormatException)
+            {
+            	Console.WriteLine("You must enter a whole number.");
+            }
+
         }
     }
 }
